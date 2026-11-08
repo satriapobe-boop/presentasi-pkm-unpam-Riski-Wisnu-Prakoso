@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Presentasi Laporan Akhir PKM - Universitas Pamulang (Kampus Serang)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #070b14;
+      --bg-card: rgba(17, 25, 40, 0.82);
+      --bg-card-hover: rgba(30, 41, 59, 0.9);
+      --border-glass: rgba(255, 255, 255, 0.12);
+      --unpam-gold: #facc15;
+      --unpam-amber: #f59e0b;
+      --accent-blue: #38bdf8;
+      --accent-indigo: #6366f1;
+      --accent-emerald: #10b981;
+      --accent-rose: #f43f5e;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 12% 18%, rgba(99, 102, 241, 0.18) 0%, transparent 40%),
+        radial-gradient(circle at 88% 82%, rgba(250, 204, 21, 0.14) 0%, transparent 40%),
+        radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.07) 0%, transparent 60%);
+      color: var(--text-main);
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      user-select: none;
+    }
+
+    /* Top Navigation Hyperlink Bar */
+    .top-nav {
+      height: 60px;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(7, 11, 20, 0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-glass);
+      z-index: 100;
+      flex-shrink: 0;
+    }
+
+    .brand-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: contain;
+      background: #fff;
+      padding: 2px;
+      border: 2px solid var(--unpam-gold);
+    }
+
+    .brand-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      color: var(--text-main);
+    }
+
+    .brand-sub {
+      font-size: 0.72rem;
+      color: var(--unpam-gold);
+      font-weight: 600;
+    }
+
+    .slide-links {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .slide-link-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-glass);
+      color: var(--text-muted);
+      padding: 6px 11px;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.22s ease;
+      text-decoration: none;
+    }
+
+    .slide-link-btn:hover {
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .slide-link-btn.active {
+      background: linear-gradient(135deg, var(--unpam-gold), var(--unpam-amber));
+      color: #0f172a;
+      border-color: transparent;
+      font-weight: 800;
+      box-shadow: 0 0 15px rgba(250, 204, 21, 0.35);
+    }
+
+    .fullscreen-btn {
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      color: var(--accent-blue);
+      padding: 7px 12px;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .fullscreen-btn:hover {
+      background: var(--accent-blue);
+      color: #070b14;
+    }
+
+    /* Slide Viewport */
+    .viewport {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+    }
+
+    .slides-track {
+      display: flex;
+      width: 800%;
+      height: 100%;
+      transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .slide {
+      width: 12.5%;
+      height: 100%;
+      padding: 28px 48px 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .slide-inner {
+      max-width: 1260px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    /* Header inside slide */
+    .slide-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(250, 204, 21, 0.12);
+      border: 1px solid rgba(250, 204, 21, 0.35);
+      color: var(--unpam-gold);
+      padding: 5px 14px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 10px;
+    }
+
+    .slide-title {
+      font-size: clamp(1.55rem, 2.5vw, 2.25rem);
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 8px;
+      background: linear-gradient(90deg, #ffffff, #cbd5e1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .slide-subtitle {
+      font-size: 0.94rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    /* Grid Layouts */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .grid-hero {
+      display: grid;
+      grid-template-columns: 1.35fr 0.85fr;
+      gap: 24px;
+      align-items: center;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+      backdrop-filter: blur(12px);
+      transition: transform 0.25s ease, border-color 0.25s ease;
+    }
+
+    .card:hover {
+      border-color: rgba(250, 204, 21, 0.38);
+      transform: translateY(-2px);
+    }
+
+    .card-title {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--unpam-gold);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card p, .card li {
+      font-size: 0.85rem;
+      color: #e2e8f0;
+      line-height: 1.55;
+    }
+
+    .card ul {
+      padding-left: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    /* Stat Boxes */
+    .stat-box {
+      background: linear-gradient(145deg, rgba(30, 41, 59, 0.85), rgba(15, 23, 42, 0.9));
+      border: 1px solid var(--border-glass);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      text-align: center;
+    }
+
+    .stat-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: var(--accent-emerald);
+      margin-bottom: 4px;
+    }
+
+    .stat-val.gold { color: var(--unpam-gold); }
+    .stat-val.blue { color: var(--accent-blue); }
+    .stat-val.rose { color: var(--accent-rose); }
+
+    .stat-label {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* Cover Profile Card */
+    .profile-card {
+      text-align: center;
+      padding: 24px;
+      background: linear-gradient(160deg, rgba(30, 41, 59, 0.92), rgba(15, 23, 42, 0.95));
+      border: 1px solid rgba(250, 204, 21, 0.35);
+      border-radius: 22px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+    }
+
+    .logo-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 16px;
+    }
+
+    .logo-circle {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      object-fit: contain;
+      background: #ffffff;
+      padding: 5px;
+      border: 2px solid var(--unpam-gold);
+    }
+
+    .author-photo {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--accent-blue);
+      margin: 8px auto 12px;
+      display: block;
+      box-shadow: 0 8px 25px rgba(56, 189, 248, 0.3);
+      background: #1e293b;
+    }
+
+    /* Table & Progress Bars for Slide 5 */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.83rem;
+      margin-top: 6px;
+    }
+
+    .data-table th {
+      background: rgba(250, 204, 21, 0.14);
+      color: var(--unpam-gold);
+      text-align: left;
+      padding: 10px 12px;
+      font-weight: 700;
+      border-bottom: 1px solid var(--border-glass);
+    }
+
+    .data-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+      color: #f1f5f9;
+    }
+
+    .data-table tr.total-row td {
+      background: rgba(16, 185, 129, 0.15);
+      font-weight: 800;
+      color: #fff;
+      border-top: 2px solid var(--accent-emerald);
+    }
+
+    .bar-wrap {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.08);
+      height: 8px;
+      border-radius: 99px;
+      overflow: hidden;
+      margin-top: 5px;
+    }
+
+    .bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-blue), var(--accent-emerald));
+      border-radius: 99px;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 0.73rem;
+      font-weight: 700;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .pill-up {
+      background: rgba(16, 185, 129, 0.2);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+    }
+
+    .pill-warn {
+      background: rgba(244, 63, 94, 0.18);
+      color: #fb7185;
+      border: 1px solid rgba(244, 63, 94, 0.35);
+    }
+
+    .school-banner {
+      width: 100%;
+      height: 135px;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 1px solid var(--border-glass);
+      margin-bottom: 10px;
+    }
+
+    /* Bottom Controls */
+    .bottom-bar {
+      height: 54px;
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(7, 11, 20, 0.9);
+      border-top: 1px solid var(--border-glass);
+      z-index: 100;
+      flex-shrink: 0;
+    }
+
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .ctrl-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border-glass);
+      color: var(--text-main);
+      padding: 8px 16px;
+      border-radius: 10px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .ctrl-btn:hover:not(:disabled) {
+      background: var(--unpam-gold);
+      color: #0f172a;
+      border-color: transparent;
+    }
+
+    .ctrl-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    .dots-container {
+      display: flex;
+      gap: 8px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 99px;
+      background: rgba(255, 255, 255, 0.22);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .dot.active {
+      width: 28px;
+      background: var(--unpam-gold);
+    }
+
+    .slide-counter {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 960px) {
+      .grid-2, .grid-3, .grid-4, .grid-hero {
+        grid-template-columns: 1fr;
+      }
+      .slide {
+        padding: 18px 20px;
+        justify-content: flex-start;
+      }
+      .slide-links {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation Hyperlink Bar -->
+  <header class="top-nav">
+    <div class="brand-bar">
+      <img src="logo universitas pamulang.png" alt="Logo UNPAM" class="brand-logo"
+           onerror="this.src='UNPAM_logo1 (2).jpg'; this.onerror=function(){this.style.display='none';}" />
+      <div>
+        <div class="brand-title">LPPM UNIVERSITAS PAMULANG (KAMPUS SERANG)</div>
+        <div class="brand-sub">Laporan Akhir PKM Ganjil 2026/2027 • Prodi Manajemen</div>
+      </div>
+    </div>
+
+    <nav class="slide-links" id="topLinks">
+      <a href="#slide-1" class="slide-link-btn active" onclick="goToSlide(0, event)">1. Sampul</a>
+      <a href="#slide-2" class="slide-link-btn" onclick="goToSlide(1, event)">2. Bab I</a>
+      <a href="#slide-3" class="slide-link-btn" onclick="goToSlide(2, event)">3. Bab II</a>
+      <a href="#slide-4" class="slide-link-btn" onclick="goToSlide(3, event)">4. Bab III</a>
+      <a href="#slide-5" class="slide-link-btn" onclick="goToSlide(4, event)">5. Bab IV (Data)</a>
+      <a href="#slide-6" class="slide-link-btn" onclick="goToSlide(5, event)">6. Bab IV (Bahas)</a>
+      <a href="#slide-7" class="slide-link-btn" onclick="goToSlide(6, event)">7. Bab V</a>
+      <a href="#slide-8" class="slide-link-btn" onclick="goToSlide(7, event)">8. Audit & Pustaka</a>
+    </nav>
+
+    <button class="fullscreen-btn" onclick="toggleFullScreen()">⛶ Layar Penuh (F)</button>
+  </header>
+
+  <!-- Main Slide Viewport -->
+  <main class="viewport" id="viewport">
+    <div class="slides-track" id="slidesTrack">
+
+      <!-- ================= SLIDE 1: SAMPUL LAPORAN AKHIR ================= -->
+      <section class="slide" id="slide-1">
+        <div class="slide-inner grid-hero">
+          <div>
+            <span class="slide-badge">✔ Laporan Akhir Kegiatan PKM • Tahun Akademik 2026/2027</span>
+            <h1 class="slide-title">Sosialisasi Literasi Keuangan Digital dan Penggunaan E-Wallet terhadap Pengelolaan Keuangan Pribadi Siswa SMA Negeri 1 Lebakwangi</h1>
+            <p class="slide-subtitle">
+              Program Studi Manajemen — Lembaga Penelitian dan Pengabdian kepada Masyarakat (LPPM) Universitas Pamulang Kampus Serang.
+            </p>
+            <div class="grid-2" style="margin-bottom: 16px;">
+              <div class="card">
+                <div class="card-title">📄 Legalitas & Kontrak PKM</div>
+                <ul>
+                  <li><strong>Status Dokumen:</strong> Laporan Akhir Pelaksanaan PKM</li>
+                  <li><strong>No. Kontrak:</strong> 0932/D5/SPKPM/LPPM/UNPAM/X/2026</li>
+                  <li><strong>Pelaksanaan:</strong> Kamis–Jumat, 08–09 Oktober 2026</li>
+                </ul>
+              </div>
+              <div class="card">
+                <div class="card-title">🏫 Mitra Sasaran Pengabdian</div>
+                <ul>
+                  <li><strong>Mitra:</strong> SMA Negeri 1 Lebakwangi, Kab. Serang</li>
+                  <li><strong>Lokasi:</strong> Kec. Lebakwangi, Banten (Kode Pos 42182)</li>
+                  <li><strong>Partisipan:</strong> 50 Siswa Kelas Akhir (Kelas XI & XII)</li>
+                </ul>
+              </div>
+            </div>
+            <div class="grid-3">
+              <div class="stat-box">
+                <div class="stat-val gold">X₁ & X₂ → Y</div>
+                <div class="stat-label">Model Intervensi PKM</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-val">+39,50%</div>
+                <div class="stat-label">Kenaikan Rata-Rata Skor</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-val blue">84,25%</div>
+                <div class="stat-label">Rata-Rata Skor Post-Test</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="profile-card">
+            <div class="logo-row">
+              <img src="logo universitas pamulang.png" alt="Logo UNPAM" class="logo-circle"
+                   onerror="this.src='UNPAM_logo1 (2).jpg'; this.onerror=function(){this.style.display='none';}" />
+              <img src="images (9).jpg" alt="Logo SMAN 1 Lebakwangi" class="logo-circle"
+                   onerror="this.style.display='none'" />
+            </div>
+            <img src="RISKI WISNU PRAKOSO.jpg" alt="Riski Wisnu Prakoso" class="author-photo"
+                 onerror="this.src='https://ui-avatars.com/api/?name=Riski+Wisnu+Prakoso&background=1e293b&color=38bdf8&size=200'" />
+            <div style="font-size: 0.75rem; color: var(--unpam-gold); font-weight: 700; letter-spacing: 1px;">KETUA TIM PENGUSUL</div>
+            <h2 style="font-size: 1.22rem; font-weight: 800; margin: 4px 0;">Riski Wisnu Prakoso, S.M., M.M.</h2>
+            <p style="font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--accent-blue); margin-bottom: 14px;">
+              NUPTK: 6941772673130292
+            </p>
+            <div style="font-size: 0.78rem; color: var(--text-muted); border-top: 1px solid var(--border-glass); padding-top: 12px;">
+              Dibiayai dengan Dana Kegiatan Penelitian dan Pengabdian kepada Masyarakat Tahun Akademik 2026/2027 • Universitas Pamulang (Kampus Serang)
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SLIDE 2: BAB I PENDAHULUAN ================= -->
+      <section class="slide" id="slide-2">
+        <div class="slide-inner">
+          <span class="slide-badge">Bab I • Pendahuluan</span>
+          <h2 class="slide-title">Latar Belakang, Fenomena Empiris & Tujuan Pengabdian</h2>
+          <p class="slide-subtitle">
+            Kesenjangan tajam antara akselerasi adopsi dompet digital (e-wallet) dan rendahnya literasi keuangan remaja memicu bias psikologis serta perilaku konsumtif.
+          </p>
+
+          <div class="grid-3" style="margin-bottom: 16px;">
+            <div class="stat-box">
+              <div class="stat-val blue">&gt;14 Miliar</div>
+              <div class="stat-label">Transaksi Uang Elektronik/Tahun (Bank Indonesia, 2023)</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-val rose">51,7%</div>
+              <div class="stat-label">Indeks Literasi Keuangan Remaja 15–17 Tahun (SNLIK OJK)</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-val gold">3 Variabel</div>
+              <div class="stat-label">Literasi Digital (X₁), E-Wallet (X₂) & Perilaku Keuangan (Y)</div>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-title">⚠️ Permasalahan Mitra (SMAN 1 Lebakwangi)</div>
+              <ul>
+                <li><strong>Money Illusion & Cashless Effect:</strong> Transaksi nontunai menyamarkan pengeluaran riil sehingga melemahkan kontrol kas harian siswa.</li>
+                <li><strong>Perilaku Konsumtif & Impulsive Buying:</strong> Dominasi keinginan (<em>wants</em>) di atas kebutuhan (<em>needs</em>), seperti <em>top-up game online</em>, kuliner tren, dan belanja daring tanpa anggaran.</li>
+                <li><strong>Kerentanan Siber Finansial:</strong> Minimnya kesadaran proteksi kode OTP, PIN, bahaya <em>phishing</em>, serta ancaman jerat pinjaman daring ilegal.</li>
+              </ul>
+            </div>
+
+            <div class="card">
+              <div class="card-title">🎯 Tujuan Operasional & Nilai Kebaruan (Novelty)</div>
+              <ul>
+                <li><strong>Menganalisis Profil Statistik:</strong> Mengukur kondisi Literasi Keuangan Digital (X₁), Intensitas Penggunaan E-Wallet (X₂), dan Perilaku Pengelolaan Keuangan Pribadi (Y) sebelum & sesudah intervensi.</li>
+                <li><strong>Praktik Regulasi Diri Langsung:</strong> Bimbingan pengaturan batas transaksi harian (<em>spending limit</em>), pengenalan kejahatan siber, dan <em>delayed gratification</em>.</li>
+                <li><strong>Manfaat Multi-Pihak:</strong> Kontribusi nyata bagi Dosen (Tridharma & publikasi), Mahasiswa (<em>experiential learning</em>), UNPAM (IKU), dan Sekolah Mitra (modul edukasi).</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SLIDE 3: BAB II TINJAUAN PUSTAKA ================= -->
+      <section class="slide" id="slide-3">
+        <div class="slide-inner">
+          <span class="slide-badge">Bab II • Tinjauan Pustaka & Solusi</span>
+          <h2 class="slide-title">Kerangka Teoretis Variabel & Paket Solusi Permasalahan</h2>
+          <p class="slide-subtitle">
+            Integrasi Ilmu Manajemen Keuangan Perilaku dan Teknologi Informasi melalui workshop interaktif <strong>"Cerdas Finansial Generasi Digital"</strong>.
+          </p>
+
+          <div class="grid-3" style="margin-bottom: 16px;">
+            <div class="card">
+              <div class="card-title">📘 Variabel X₁: Literasi Keuangan Digital</div>
+              <p style="margin-bottom: 8px;">Kemampuan mengakses, mengelola, dan mengevaluasi layanan keuangan digital secara rasional & aman (Lusardi, 2019; OJK, 2023, 2024).</p>
+              <ul>
+                <li>Pengetahuan produk & fitur finansial digital</li>
+                <li>Keterampilan teknis operasional transaksi</li>
+                <li>Kesadaran risiko siber (<em>cybersecurity awareness</em>)</li>
+                <li>Sikap keuangan digital yang bijak</li>
+              </ul>
+            </div>
+
+            <div class="card">
+              <div class="card-title">📱 Variabel X₂: Intensitas Penggunaan E-Wallet</div>
+              <p style="margin-bottom: 8px;">Tingkat frekuensi, volume saldo, dan keragaman transaksi pada aplikasi GoPay, DANA, OVO, dan ShopeePay berdasarkan <strong>TAM (Davis, 1989; Venkatesh et al., 2012)</strong>.</p>
+              <ul>
+                <li>Persepsi kemudahan (<em>perceived ease of use</em>)</li>
+                <li>Persepsi kemanfaatan (<em>perceived usefulness</em>)</li>
+                <li>Mitigasi <em>cashless effect</em> & promo manipulatif</li>
+              </ul>
+            </div>
+
+            <div class="card">
+              <div class="card-title">💰 Variabel Y: Pengelolaan Keuangan Pribadi</div>
+              <p style="margin-bottom: 8px;">Perencanaan, pelaksanaan, dan evaluasi dana pribadi berdasarkan <strong>Theory of Planned Behavior / TPB (Ajzen, 1991; Dew & Xiao, 2011; Ulfa, 2024)</strong>.</p>
+              <ul>
+                <li>Konsumsi rasional sesuai skala prioritas</li>
+                <li>Komitmen tabungan rutin sejak awal</li>
+                <li>Perencanaan masa depan & bebas utang konsumtif</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-title">💡 Formula Anggaran 50/30/20 & Solusi Terstruktur</div>
+              <ul>
+                <li><strong>50% Kebutuhan Pokok/Sekolah:</strong> Transportasi, makan harian, dan perlengkapan belajar esensial.</li>
+                <li><strong>30% Tabungan & Investasi Masa Depan:</strong> Prinsip <em>pay yourself first</em> dan pengenalan investasi mikro legal yang diawasi OJK.</li>
+                <li><strong>20% Keinginan/Hiburan Harian:</strong> Kuota terkendali dengan fitur <em>limit setting</em> pada aplikasi dompet digital.</li>
+              </ul>
+            </div>
+            <div class="card">
+              <div class="card-title">📦 4 Luaran Konkret Kegiatan Sosialisasi</div>
+              <ul>
+                <li><strong>1. Modul & Booklet Literasi Keuangan Digital (PDF):</strong> Panduan menyusun anggaran pribadi sederhana.</li>
+                <li><strong>2. Materi Presentasi & Infografis Investasi Dasar:</strong> Membedakan tabungan konvensional dan investasi mikro.</li>
+                <li><strong>3. Poster Digital Panduan Keamanan E-Wallet:</strong> Aktivasi 2FA, PIN berkala, dan pencegahan <em>phishing</em>.</li>
+                <li><strong>4. Simulasi Pencatatan Arus Kas Digital:</strong> Latihan menekan pengeluaran non-esensial harian.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SLIDE 4: BAB III METODE PELAKSANAAN ================= -->
+      <section class="slide" id="slide-4">
+        <div class="slide-inner">
+          <span class="slide-badge">Bab III • Metode Pelaksanaan</span>
+          <h2 class="slide-title">Lokasi, Sasaran Sampel & Rangkaian Workshop 2 Hari</h2>
+          <p class="slide-subtitle">
+            Pendekatan <em>Participatory Action Learning System</em> (PALS) dan evaluasi kombinasi (<em>mix-method</em>) secara luring di SMA Negeri 1 Lebakwangi.
+          </p>
+
+          <div class="grid-hero" style="margin-bottom: 14px;">
+            <div class="grid-2">
+              <div class="card">
+                <div class="card-title">📍 Waktu, Tempat & Khalayak Sasaran</div>
+                <ul>
+                  <li><strong>Lokasi:</strong> Aula Utama SMA Negeri 1 Lebakwangi, Jl. Raya Lebak Wangi Pontang, Desa Lebak Wangi, Kec. Lebakwangi, Kab. Serang, Banten 42182.</li>
+                  <li><strong>Waktu:</strong> Kamis–Jumat, 08–09 Oktober 2026 (08.00–13.00 WIB).</li>
+                  <li><strong>Sampel Primer:</strong> 50 Siswa Kelas Akhir (Kelas XI & XII) melalui <em>purposive sampling</em> (pengguna aktif gawai/e-wallet).</li>
+                  <li><strong>Sasaran Sekunder & Tersier:</strong> Guru Ekonomi, Pembina OSIS, dan Orang Tua Siswa.</li>
+                </ul>
+              </div>
+
+              <div class="card">
+                <div class="card-title">🔄 4 Tahapan Pelaksanaan Program</div>
+                <ul>
+                  <li><strong>1. Persiapan & Pre-Test:</strong> Mengukur <em>baseline</em> awal pemahaman literasi digital (X₁), penggunaan e-wallet (X₂), dan pengelolaan kas (Y).</li>
+                  <li><strong>2. Edukasi Kognitif (Hari 1):</strong> Pemaparan konsep literasi keuangan digital, <em>needs vs wants</em>, dan arsitektur keamanan siber.</li>
+                  <li><strong>3. Praktik & Simulasi (Hari 2):</strong> Pencatatan arus kas digital dan simulasi kelompok <strong>Budgeting Challenge Rp500.000/Bulan</strong>.</li>
+                  <li><strong>4. Evaluasi Akhir (Hari 2):</strong> Penyebaran kuesioner <em>Post-Test</em> (Jumat, 09 Okt 2026 pukul 12.00–12.45 WIB) dan sesi FGD.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="card" style="text-align: center;">
+              <img src="images (10).jpg" alt="Lingkungan SMA Negeri 1 Lebakwangi" class="school-banner"
+                   onerror="this.style.display='none'" />
+              <div class="card-title" style="justify-content: center;">🏫 Mitra SMAN 1 Lebakwangi</div>
+              <p style="font-size: 0.79rem; color: var(--text-muted);">
+                Wilayah transisi semi-perkotaan di Kecamatan Lebakwangi, Kabupaten Serang dengan tingkat adopsi gawai dan transaksi QRIS/e-wallet pelajar yang pesat.
+              </p>
+            </div>
+          </div>
+
+          <div class="grid-4">
+            <div class="stat-box">
+              <div class="stat-val gold">Hari 1 • Sesi 1</div>
+              <div class="stat-label">Pre-Test & Materi Literasi Keuangan Digital (X₁)</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-val blue">Hari 1 • Sesi 2</div>
+              <div class="stat-label">E-Wallet Sehat, Aman & Mitigasi Cashless Effect (X₂)</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-val">Hari 2 • Sesi 3</div>
+              <div class="stat-label">Praktik Pencatatan Kas & Budgeting Challenge Rp500rb</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-val gold">Hari 2 • Sesi 4</div>
+              <div class="stat-label">Post-Test (Skala 0–100%), FGD & Penyerahan Modul</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SLIDE 5: BAB IV HASIL PELAKSANAAN & TABEL 4.1 ================= -->
+      <section class="slide" id="slide-5">
+        <div class="slide-inner">
+          <span class="slide-badge">Bab IV • Subbab 4.1 Hasil Pelaksanaan Pengabdian</span>
+          <h2 class="slide-title">Capaian Kuantitatif Pre-Test vs Post-Test (Tabel 4.1 Terkoreksi)</h2>
+          <p class="slide-subtitle">
+            Evaluasi terhadap 50 siswa kelas akhir pada penggunaan platform nasional (GoPay, OVO, DANA, ShopeePay, LinkAja, dan QRIS).
+          </p>
+
+          <div class="grid-hero">
+            <div class="card">
+              <div class="card-title">📊 Tabel 4.1 Hasil Pre-Test dan Post-Test Siswa (N = 50)</div>
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Aspek Penilaian</th>
+                    <th>Pre-Test</th>
+                    <th>Post-Test</th>
+                    <th>Selisih Kenaikan</th>
+                    <th>Keterangan Capaian</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <strong>1. Pemahaman konsep literasi keuangan digital</strong>
+                      <div class="bar-wrap"><div class="bar-fill" style="width: 82%"></div></div>
+                    </td>
+                    <td>48,00%</td>
+                    <td><strong>82,00%</strong></td>
+                    <td><span class="pill pill-up">+34,00 Poin</span></td>
+                    <td>Fondasi Kognitif</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>2. Pengetahuan penggunaan e-wallet secara bijak</strong>
+                      <div class="bar-wrap"><div class="bar-fill" style="width: 87%"></div></div>
+                    </td>
+                    <td>52,00%</td>
+                    <td><strong>87,00%</strong></td>
+                    <td><span class="pill pill-up">+35,00 Poin</span></td>
+                    <td>🏆 <strong>Skor Akhir Tertinggi (#1)</strong></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>3. Kesadaran keamanan transaksi digital</strong>
+                      <div class="bar-wrap"><div class="bar-fill" style="width: 85%"></div></div>
+                    </td>
+                    <td>41,00%</td>
+                    <td><strong>85,00%</strong></td>
+                    <td><span class="pill pill-up">+44,00 Poin</span></td>
+                    <td>Skor Akhir Tertinggi #2</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>4. Kemampuan mengelola keuangan pribadi secara digital</strong>
+                      <div class="bar-wrap"><div class="bar-fill" style="width: 83%"></div></div>
+                    </td>
+                    <td>38,00%</td>
+                    <td><strong>83,00%</strong></td>
+                    <td><span class="pill pill-up">+45,00 Poin</span></td>
+                    <td>🚀 <strong>Lonjakan Tertinggi (+45)</strong></td>
+                  </tr>
+                  <tr class="total-row">
+                    <td>RATA-RATA KESELURUHAN (179/4 → 337/4)</td>
+                    <td>44,75%</td>
+                    <td>84,25%</td>
+                    <td><span class="pill pill-up">+39,50 Poin</span></td>
+                    <td>Valid & Terverifikasi</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+              <div class="card">
+                <div class="card-title">🔍 Kondisional Baseline Sebelum PKM</div>
+                <ul>
+                  <li><strong>72% peserta</strong> belum memahami konsep menyeluruh literasi keuangan digital & risiko fintech.</li>
+                  <li><strong>68% peserta</strong> belum mengetahui langkah pencegahan ancaman siber pada akun digital.</li>
+                  <li><strong>Hanya 32% peserta</strong> yang rutin mencatat pengeluaran harian/bulanan sebelum pelatihan.</li>
+                </ul>
+              </div>
+              <div class="card">
+                <div class="card-title">✅ Capaian Pasca-Pelatihan</div>
+                <ul>
+                  <li><strong>89% peserta</strong> mampu mengoptimalkan fitur keamanan (PIN, biometrik/2FA) dan transaksi sehat pada minimal 2 aplikasi e-wallet lokal.</li>
+                  <li>Kenaikan rata-rata keseluruhan mencapai <strong>+39,50 poin persentase</strong> (dari <strong>44,75%</strong> menjadi <strong>84,25%</strong>).</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SLIDE 6: BAB IV PEMBAHASAN 4 DIMENSI ================= -->
+      <section class="slide" id="slide-6">
+        <div class="slide-inner">
+          <span class="slide-badge">Bab IV • Subbab 4.2 Pembahasan</span>
+          <h2 class="slide-title">Analisis Empat Dimensi Pembahasan (Subbab 4.2.1 – 4.2.4)</h2>
+          <p class="slide-subtitle">
+            Interpretasi analitik capaian program terhadap teori perilaku keuangan dan penerimaan teknologi finansial.
+          </p>
+
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-title">🧠 4.2.1 Pemahaman Kognitif Literasi Keuangan Digital</div>
+              <ul>
+                <li>Meningkat dari <strong>48% ke 82% (+34 poin)</strong>; merekonstruksi cara pandang siswa yang semula menganggap saldo e-wallet sekadar angka abstrak.</li>
+                <li>Menekan sindrom pengeluaran tanpa hambatan (<em>frictionless spending</em>) dengan menanamkan pemahaman nilai waktu uang (<em>time value of money</em>) serta penyaringan promosi media sosial.</li>
+              </ul>
+            </div>
+
+            <div class="card">
+              <div class="card-title">📲 4.2.2 Efikasi E-Wallet dalam Perencanaan & Alokasi Dana</div>
+              <ul>
+                <li>Mencatat skor akhir tertinggi sebesar <strong>87% (naik +35 poin dari 52%)</strong> berkat metode <em>hands-on</em> dan <em>experiential learning</em>.</li>
+                <li>Sejalan dengan <strong>TAM (Davis, 1989)</strong>: kesadaran atas kebermanfaatan fitur riwayat transaksi (<em>transaction history</em>) dan kantong digital (<em>pocket</em>) mengubah e-wallet menjadi alat penganggaran otomatis.</li>
+              </ul>
+            </div>
+
+            <div class="card">
+              <div class="card-title">🛡️ 4.2.3 Mitigasi Konsumtif Digital & Keamanan Transaksi</div>
+              <ul>
+                <li>Kesadaran keamanan siber melonjak <strong>+44 poin (dari 41% ke 85%)</strong>; membekali siswa dengan protokol proteksi PIN, kerahasiaan OTP, 2FA, dan deteksi <em>phishing / social engineering</em>.</li>
+                <li>Memulihkan kesadaran psikologis <em>pain of paying</em> saat memindai QRIS atau menghadapi promo diskon kilat dan <em>Paylater</em>.</li>
+              </ul>
+            </div>
+
+            <div class="card">
+              <div class="card-title">📈 4.2.4 Kemampuan Mengelola Keuangan Pribadi Secara Digital</div>
+              <ul>
+                <li>Mencatat lonjakan kenaikan tertinggi sebesar <strong>+45 poin (dari 38% ke 83%)</strong> yang mencakup 3 dimensi utama:
+                  <br>1) <strong>Digital Budgeting:</strong> Penyusunan pos anggaran & kepatuhan <em>spending limit</em>.
+                  <br>2) <strong>Transaction Monitoring:</strong> Audit mandiri riwayat transaksi harian/mingguan.
+                  <br>3) <strong>Digital Saving & Security:</strong> Pemanfaatan fitur <em>saving goals</em> & proteksi privasi akun.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SLIDE 7: BAB V KESIMPULAN & SARAN ================= -->
+      <section class="slide" id="slide-7">
+        <div class="slide-inner">
+          <span class="slide-badge">Bab V • Subbab 5.1 Kesimpulan & 5.2 Saran</span>
+          <h2 class="slide-title">Kesimpulan, Evaluasi Keterbatasan & Rekomendasi Strategis</h2>
+          <p class="slide-subtitle">
+            Sintesis pencapaian program, dampak multi-pemangku kepentingan, dan peta jalan tindak lanjut berkelanjutan.
+          </p>
+
+          <div class="grid-2" style="margin-bottom: 14px;">
+            <div class="card">
+              <div class="card-title">📌 5.1 Kesimpulan Utama & Refleksi Pelaksanaan</div>
+              <ul>
+                <li><strong>Sinergi Antar-Variabel Terbukti:</strong> Penguatan Literasi Keuangan Digital (X₁) dan pengendalian Intensitas Penggunaan E-Wallet (X₂) berhasil mentransformasi Perilaku Pengelolaan Keuangan Pribadi (Y) siswa dengan kenaikan rata-rata <strong>+39,50 poin</strong> (44,75% → 84,25%).</li>
+                <li><strong>Multi-Stakeholder Impact:</strong> Menumbuhkan <em>digital financial resilience</em> bagi siswa, menyediakan modul tekno-finansial bagi sekolah, dan menciptakan efek <em>agent of change</em> bagi orang tua di rumah.</li>
+                <li><strong>Refleksi Keterbatasan Objektif:</strong> Intervensi berlangsung intensif selama 2 hari pada 50 siswa kelas akhir dan evaluasi diukur langsung pada akhir hari kedua, sehingga dibutuhkan pemantauan berkala jangka panjang.</li>
+              </ul>
+            </div>
+
+            <div class="card">
+              <div class="card-title">🚀 5.2 Empat Rekomendasi Tindak Lanjut</div>
+              <ul>
+                <li><strong>1. Bagi Mitra SMAN 1 Lebakwangi:</strong> Integrasi materi ke mata pelajaran Ekonomi, proyek P5, Bimbingan Konseling, dan ekosistem kantin nontunai sehat.</li>
+                <li><strong>2. Bagi Siswa:</strong> Disiplin menerapkan <em>mindful spending</em>, audit riwayat transaksi harian, prinsip <em>pay yourself first</em>, dan protokol keamanan 2FA/OTP.</li>
+                <li><strong>3. Bagi Tim Pengabdi & UNPAM:</strong> Melaksanakan <em>post-intervention monitoring</em> (3–6 bulan), <em>Training of Trainers</em> (ToT) bagi OSIS/guru, serta publikasi ilmiah & HKI modul.</li>
+                <li><strong>4. Bagi Regulator Eksternal (OJK, BI, Dinas Pendidikan):</strong> Kolaborasi kurikulum literasi remaja semi-perkotaan & penyediaan tabungan mikro pelajar bebas biaya admin.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="grid-4">
+            <div class="stat-box">
+              <div class="stat-val gold">5.1 & 5.2</div>
+              <div class="stat-label">Struktur Bab V Terstandar</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-val">ToT & P5</div>
+              <div class="stat-label">Integrasi Kurikulum Sekolah</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-val blue">3–6 Bulan</div>
+              <div class="stat-label">Rekomendasi Monitoring Lanjutan</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-val gold">HKI & SINTA</div>
+              <div class="stat-label">Target Hilirisasi Luaran</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SLIDE 8: AUDIT VALIDITAS & DAFTAR PUSTAKA ================= -->
+      <section class="slide" id="slide-8">
+        <div class="slide-inner">
+          <span class="slide-badge">Lampiran Akademik • Audit Kualitas & Daftar Pustaka</span>
+          <h2 class="slide-title">Rekonsiliasi Perbaikan Dokumen & Referensi Utama (APA 7th)</h2>
+          <p class="slide-subtitle">
+            Seluruh temuan ketidaktepatan hitung, metodologi, sitasi, dan teknis penulisan pada draf awal telah dikoreksi sepenuhnya.
+          </p>
+
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-title">🛠️ Ringkasan Koreksi Validitas yang Diterapkan</div>
+              <ul>
+                <li><span class="pill pill-up">Koreksi Hitung</span> Rata-rata Pre-Test diperbaiki dari 45,75% menjadi <strong>44,75%</strong> (179 ÷ 4) dan selisih kenaikan dari 38,5 menjadi <strong>+39,50 poin</strong>.</li>
+                <li><span class="pill pill-up">Koreksi Peringkat</span> Skor akhir (Post-Test) tertinggi adalah <strong>Pengetahuan e-wallet bijak (87%)</strong>, sedangkan <strong>Kemampuan mengelola keuangan digital (83%)</strong> mencatat kenaikan tertinggi (+45 poin).</li>
+                <li><span class="pill pill-up">Koreksi Konteks</span> Menghapus aplikasi Filipina <strong>GCash</strong> (diganti GoPay & ShopeePay) serta menyeragamkan sampel pada <strong>50 siswa kelas XI & XII</strong>.</li>
+                <li><span class="pill pill-up">Koreksi Teknis</span> Status sampul diubah ke <strong>Laporan Akhir</strong>, alamat peta disesuaikan ke <strong>Kec. Lebakwangi</strong>, serta penomoran <strong>Subbab 4.1, Tabel 4.1, 4.2.4, 5.1, & 5.2</strong> dirapikan.</li>
+              </ul>
+            </div>
+
+            <div class="card">
+              <div class="card-title">📚 Daftar Pustaka Utama yang Tersinkronisasi</div>
+              <ul style="font-size: 0.78rem; gap: 5px;">
+                <li><strong>Ajzen, I. (1991).</strong> The theory of planned behavior. <em>Organizational Behavior and Human Decision Processes</em>, 50(2), 179–211.</li>
+                <li><strong>Assifa, M. N., Nadapdap, S. K., Syarifudin, & Prakoso, R. W. (2025).</strong> Perilaku keuangan siswa SMA di era digital... <em>Krepa: Kreativitas pada Abdimas</em>, 2(18), 3784–3795.</li>
+                <li><strong>Bank Indonesia. (2023 & 2024).</strong> <em>Laporan Transaksi & Sistem Pembayaran Ekonomi Keuangan Digital Indonesia</em>. Bank Indonesia.</li>
+                <li><strong>Davis, F. D. (1989).</strong> Perceived usefulness, perceived ease of use, and user acceptance of information technology. <em>MIS Quarterly</em>, 13(3), 319–340.</li>
+                <li><strong>Dewi, M. W., Prakoso, R. W., Saputra, F. T., Herlina, D., & Kurnia, R. (2025).</strong> Perilaku keuangan siswa SMA di era digital... <em>Krepa: Jurnal Pengabdian Masyarakat</em>, 7(5), 3851–3862.</li>
+                <li><strong>Ikhsanudin, I. (2025).</strong> Transformasi pola konsumsi Generasi Z melalui pemanfaatan e-wallet di era digital. <em>Cerdika</em>, 5(6), 1880–1893.</li>
+                <li><strong>Lusardi, A. (2019).</strong> Financial literacy and the need for financial education: Evidence and implications. <em>Swiss Journal of Economics and Statistics</em>, 155(1), 1–8.</li>
+                <li><strong>Otoritas Jasa Keuangan. (2023, 2024, 2025).</strong> <em>Survei Nasional Literasi dan Inklusi Keuangan (SNLIK) & SNLKI</em>. OJK.</li>
+                <li><strong>Sugiyono. (2021).</strong> <em>Metode Penelitian Kuantitatif, Kualitatif, dan R&D</em> (Edisi ke-3). Alfabeta.</li>
+                <li><strong>Ulfa, M. (2024).</strong> Pengaruh literasi keuangan terhadap pengelolaan keuangan pribadi siswa sekolah menengah. <em>JAMAPEDIK</em>, 1(2), 88–97.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Bottom Slide Navigation & Indicator Bar -->
+  <footer class="bottom-bar">
+    <div class="slide-counter" id="slideCounter">SLIDE 01 / 08</div>
+
+    <div class="dots-container" id="dotsContainer"></div>
+
+    <div class="nav-controls">
+      <button class="ctrl-btn" id="prevBtn" onclick="changeSlide(-1)">← Sebelumnya</button>
+      <button class="ctrl-btn" id="nextBtn" onclick="changeSlide(1)">Selanjutnya →</button>
+    </div>
+  </footer>
+
+  <script>
+    const totalSlides = 8;
+    let currentSlide = 0;
+
+    const track = document.getElementById('slidesTrack');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const counter = document.getElementById('slideCounter');
+    const dotsContainer = document.getElementById('dotsContainer');
+    const topLinks = document.querySelectorAll('.slide-link-btn');
+
+    // Generate clickable pagination dots
+    for (let i = 0; i < totalSlides; i++) {
+      const dot = document.createElement('div');
+      dot.className = 'dot' + (i === 0 ? ' active' : '');
+      dot.title = 'Ke Slide ' + (i + 1);
+      dot.addEventListener('click', () => goToSlide(i));
+      dotsContainer.appendChild(dot);
+    }
+
+    const dots = document.querySelectorAll('.dot');
+
+    function updateUI() {
+      track.style.transform = `translateX(-${currentSlide * 12.5}%)`;
+      counter.textContent = `SLIDE 0${currentSlide + 1} / 0${totalSlides}`;
+      prevBtn.disabled = currentSlide === 0;
+      nextBtn.disabled = currentSlide === totalSlides - 1;
+
+      dots.forEach((dot, idx) => {
+        dot.classList.toggle('active', idx === currentSlide);
+      });
+
+      topLinks.forEach((link, idx) => {
+        link.classList.toggle('active', idx === currentSlide);
+      });
+
+      history.replaceState(null, null, `#slide-${currentSlide + 1}`);
+    }
+
+    function changeSlide(direction) {
+      const nextIndex = currentSlide + direction;
+      if (nextIndex >= 0 && nextIndex < totalSlides) {
+        currentSlide = nextIndex;
+        updateUI();
+      }
+    }
+
+    function goToSlide(index, event) {
+      if (event) event.preventDefault();
+      if (index >= 0 && index < totalSlides) {
+        currentSlide = index;
+        updateUI();
+      }
+    }
+
+    // Keyboard navigation (Arrow keys, Space, Number keys 1-8, Fullscreen F)
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
+        e.preventDefault();
+        changeSlide(1);
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        e.preventDefault();
+        changeSlide(-1);
+      } else if (e.key >= '1' && e.key <= '8') {
+        goToSlide(parseInt(e.key, 10) - 1);
+      } else if (e.key.toLowerCase() === 'f') {
+        toggleFullScreen();
+      }
+    });
+
+    // Touch swipe support for mobile/tablet
+    let touchStartX = 0;
+    document.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    document.addEventListener('touchend', (e) => {
+      const diff = touchStartX - e.changedTouches[0].screenX;
+      if (Math.abs(diff) > 50) {
+        changeSlide(diff > 0 ? 1 : -1);
+      }
+    }, { passive: true });
+
+    function toggleFullScreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        document.exitFullscreen();
+      }
+    }
+
+    // Check URL hash on load (supports direct hyperlink to specific slide e.g. #slide-5)
+    window.addEventListener('DOMContentLoaded', () => {
+      const hash = window.location.hash;
+      if (hash && hash.startsWith('#slide-')) {
+        const num = parseInt(hash.replace('#slide-', ''), 10);
+        if (num >= 1 && num <= totalSlides) {
+          currentSlide = num - 1;
+          updateUI();
+        }
+      }
+    });
+  </script>
+</body>
+</html>
